@@ -24,6 +24,9 @@ class ArticleSerializer(serializers.Serializer):
         instance.location = validated_data.get('location',instance.location)
         instance.publication_data = validated_data.get('publication_data',instance.publication_data)
         instance.active = validated_data.get('active',instance.active)
+
+        instance.save()
+        return instance
         
 
 # serializer.data
