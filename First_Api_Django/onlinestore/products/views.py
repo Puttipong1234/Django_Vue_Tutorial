@@ -47,3 +47,34 @@ def product_detail(request,pk):
             }, status = 404 )
     
     return response
+
+
+def manufacturer_list(request):
+    manufacturers = Manufacturer.objects.filter(active=True) #[0:30]
+    data = {"manufacturers": list(manufacturers.values())}
+    response = JsonResponse(data)
+    return response
+
+
+def manufacturer_detail(request,pk):
+    try:
+        manufacturer = Manufacturer.objects.get(pk=pk)
+        manufacturer_products = manufacturer.products.all()
+        data = {"manufacturer": {
+            "name" : manufacturer.name,
+            "location" : manufacturer.location,
+            "active" : manufacturer.active,
+            "products" : list(manufacturer_products.values())
+        }}
+        response = JsonResponse(data)
+    
+    except Manufacturer.DoesNotExist:
+        response = JsonResponse(
+            {
+                'error':{
+                    "code":404,
+                    "message":"manufacturer not found!"
+                }
+            }, status = 404 )
+    
+    return response
