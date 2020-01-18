@@ -1,0 +1,25 @@
+pip install Django
+pip install pillow
+pip freeze > requirements.txt
+django-admin startproject onlinestore
+cd onlinestore
+
+python manage.py migrate
+python manage.py createsuperuser
+
+@ Debug > luanch.json 
+"program": "${workspaceFolder}/First_Api_Django/onlinestore/manage.py",
+//"--nothreading"  commend this
+
+
+python manage.py startapp products
+@ settings.py > install_app > adding "products"
+
+@models.py : Writing DB model (products)
+python manage.py makemigrations
+
+@views.py : create url routing
+
+#### if models Change ####
+python manage.py makemigrations
+python manage.py migrate --run-syncdb
