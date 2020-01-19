@@ -6,13 +6,23 @@ from rest_framework import mixins
 from ebooks.models import Ebook , Review
 from ebooks.api.serializers import EbookSerializer , ReviewSerializer
 
+##impoer permission
+from rest_framework import permissions
+from ebooks.api.permission import IsAdminUserOrReadOnly
+
 class EbookListCreateAPIView(generics.ListCreateAPIView):
     queryset = Ebook.objects.all()
     serializer_class = EbookSerializer
+    #adding permission
+    # permission_classes =  [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes =  [IsAdminUserOrReadOnly]
 
 class EbookDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ebook.objects.all()
     serializer_class = EbookSerializer
+    #adding permission
+    # permission_classes =  [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes =  [IsAdminUserOrReadOnly]
 
 class ReviewCreateAPIView(generics.CreateAPIView):
     queryset = Review.objects.all()
