@@ -11,6 +11,9 @@ from ebooks.api.serializers import EbookSerializer , ReviewSerializer
 from rest_framework import permissions
 from ebooks.api.permission import IsAdminUserOrReadOnly , IsReviewAuthorOrReadOnly
 
+## import pagination
+from ebooks.api.pagination import SmallSetPagination
+
 class EbookListCreateAPIView(generics.ListCreateAPIView):
     queryset = Ebook.objects.all()
     serializer_class = EbookSerializer
@@ -19,11 +22,12 @@ class EbookListCreateAPIView(generics.ListCreateAPIView):
     permission_classes =  [IsAdminUserOrReadOnly]
 
 class EbookDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ebook.objects.all()
+    queryset = Ebook.objects.all().order_by("-id") ##get last to show first
     serializer_class = EbookSerializer
     #adding permission
     # permission_classes =  [permissions.IsAuthenticatedOrReadOnly]
     permission_classes =  [IsAdminUserOrReadOnly]
+    pagination_class = SmallSetPagination
 
 class ReviewCreateAPIView(generics.CreateAPIView):
     queryset = Review.objects.all()
