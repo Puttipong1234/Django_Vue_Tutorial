@@ -37,15 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', #adding allauth
     'rest_framework',
     'rest_framework.authtoken',
     
     'rest_auth',
+    'rest_auth.registration', #adding allauth
     'profiles',
     
-    'allauth',
-    'allauth.account',
-    'allauth,social'
+    'allauth', #adding allauth
+    'allauth.account', #adding allauth
+    'allauth.socialaccount' #adding allauth
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,6 @@ REST_FRAMEWORK = {
     ]
 }
 
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNR_EMAIL_REQUIRED = (True)
